@@ -7,7 +7,11 @@ function CadastroAdm(): JSX.Element {
 
 
 
-
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+    const [nome, setNome] = useState<string>('');
+    const [preco, setPreco] = useState<string>('');
+    const [ingredientes, setIngredientes] = useState<string>('');
+    const [imagem, setImagem] = useState<any>('');
 
 
 
@@ -19,15 +23,16 @@ function CadastroAdm(): JSX.Element {
             <Animatable.View animation="fadeInLeft"
                 delay={500} style={styles.containerHeader} >
 
-                <Text style={styles.message}>Cadastrar Administrador(a)</Text>
+                <Text style={styles.message}>Cadastrar Prodiuto(a)</Text>
             </Animatable.View>
 
             <Animatable.View animation="fadeInUp"
                 style={styles.containerForm} >
                 <Text style={styles.title}>Nome</Text>
                 <TextInput
-                    placeholder="Nome"
-                    style={styles.input}></TextInput>
+                    placeholder="Nome do Produto"
+                    value={nome}
+                    onChangeText={setNome}/>
 
                 <Text style={styles.title}>E-mail</Text>
                 <TextInput

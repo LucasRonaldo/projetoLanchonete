@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 
 function Welcome(): React.JSX.Element {
-    const navigation = useNavigation();
+  /// const navigation = useNavigation();
 
     const rotation = React.useRef(new Animated.Value(0)).current;
     const scale = React.useRef(new Animated.Value(1)).current;
@@ -27,7 +27,7 @@ function Welcome(): React.JSX.Element {
                 useNativeDriver: true,
             }).start(() => {
                 // Navegar para a próxima tela após a segunda animação ser concluída
-                navigation.navigate('SignIn');
+               // navigation.navigate('SignIn');
             });
         });
     });
