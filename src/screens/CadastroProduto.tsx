@@ -193,18 +193,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold'
     },
-    imageButtonPerfil: {
-        backgroundColor: 'red',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginTop:10
-
-    },
-    imageButtonTextPerfil: {
-        color: 'white',
-        fontWeight: 'bold'
-    }
+    
 
 
 
