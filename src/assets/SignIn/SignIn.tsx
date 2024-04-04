@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 
 function SignIn(): JSX.Element {
-    const navigation = useNavigation();
+    //const navigation = useNavigation();
     
 
     return (
@@ -37,7 +37,7 @@ function SignIn(): JSX.Element {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonRegister}>
-                    <Text style={styles.registerText} onPress={() => navigation.navigate('cadastroPage')}>
+                    <Text style={styles.registerText} /*onPress={() => navigation.navigate('cadastroPage')}*/>
                         Não possui uma conta?: Cadastre
                     </Text>
                 </TouchableOpacity>
