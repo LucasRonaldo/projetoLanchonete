@@ -36,7 +36,7 @@ const renderItem = ({ item }: { item: Item }) => (
 function HomeLanchonete(): React.JSX.Element {
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor='#fafafa' barStyle='dark-content' />
+            <StatusBar backgroundColor='#bdbdbd' barStyle='dark-content' />
             <Animatable.View animation="fadeInDown" delay={600} style={styles.header}>
                 <Animatable.Image  animation="pulse" easing="ease-out" iterationCount="infinite"
                     source={require('./assets/images/logo.png')}
@@ -46,12 +46,12 @@ function HomeLanchonete(): React.JSX.Element {
 
             <View><Text style={styles.tituloCategoria}>Categorias</Text></View>
 
-            <View style={styles.categorias}>
+            <ScrollView style={styles.categorias} showsHorizontalScrollIndicator horizontal>
                 <View style={styles.itensCategoria}>
                     <Image source={require('../src/assets/images/drink.png')} style={styles.categoriaIcon} />
                     <Text style={styles.textItemCategoria}>Bebida</Text>
                 </View>
-            </View>
+            </ScrollView>
 
             <FlatList
                 showsVerticalScrollIndicator={false}
@@ -73,14 +73,14 @@ function HomeLanchonete(): React.JSX.Element {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fafafa'
+        backgroundColor: '#dadada'
     },
     row: {
         flexDirection: 'row',
         padding: 10,
     },
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: '#f1f1f1',
         padding: 15,
         marginVertical: 8,
         marginHorizontal: 16,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     header: {
-        backgroundColor: '#fafafa',
+        backgroundColor: '#bdbdbd',
         alignItems: 'center',
         paddingVertical: 10,
         height: 60,
@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     categorias: {
-        backgroundColor: '#fff',
+        backgroundColor: '#f3f3f3',
         padding: 10,
         marginHorizontal: 16,
         borderRadius: 10,
-        height: 80,
+        height: 100,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         borderTopWidth: 0.2,
-        backgroundColor: '#fafafa',
+        backgroundColor: '#bdbdbd',
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
