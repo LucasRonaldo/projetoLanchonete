@@ -4,6 +4,7 @@ import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function CadastroCliente(): JSX.Element {
 
@@ -39,7 +40,11 @@ function CadastroCliente(): JSX.Element {
             }
         });
         if(response.status==200){
-            console.log("Cliente Cadastrado com sucesso...");
+            Swal.fire({
+                title: "Good job!",
+                text: "Cliente cadastrado",
+                icon: "success"
+              });
         }
         else{
             console.log("Cliente não cadastrado");

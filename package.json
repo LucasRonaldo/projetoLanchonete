@@ -17,7 +17,8 @@
     "react-native": "0.73.6",
     "react-native-animatable": "^1.4.0",
     "react-native-image-picker": "^7.1.2",
-    "react-native-vector-icons": "^10.0.3"
+    "react-native-vector-icons": "^10.0.3",
+    "sweetalert2": "^11.10.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

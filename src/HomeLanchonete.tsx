@@ -1,7 +1,8 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
-
+const [produtos, setProdutos] = useState<Produto[]>([]);
 
 
 interface Item {
@@ -12,28 +13,40 @@ interface Item {
     imagemIlustrativa: any;
 }
 
-const dados: Item[] = [
-    { id: '1', nome: 'Strogonoff', preco: 'R$ 25,00', listaDeIgredientes: 'Frango com queijo\nMolho de Tomate\nCatupiry\nFarinha\nMilho\nTomate\nMiojinho\nPimenta do Reino', imagemIlustrativa: require('../src/assets/images/strogonoff.png') },
-    { id: '2', nome: 'Hamburguer', preco: 'R$ 30,00', listaDeIgredientes: 'Frango com queijo\nMolho de Tomate\nCatupiry\nFarinha\nMilho\nTomate\nMiojinho\nPimenta do Reino', imagemIlustrativa: require('../src/assets/images/hamburguer.png' )},
-    // Adicione os outros itens aqui
-];
+useEffect(() => {
+    listarClientes();
+}, []);
+
+
+const listarClientes = async () => {
+    try {
+        const response = await axios.get('http://10.137.11.210:8000/api/produtos');
+        if (response.status === 200) {
+            setProdutos(response.data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
 
 const renderItem = ({ item }: { item: Item }) => (
     <Animatable.View animation="fadeInLeft" delay={400} style={styles.card}>
-        <Text style={styles.nome}>{item.nome}</Text>
-
-        <View style={styles.row}>
-            <Image source={item.imagemIlustrativa} style={styles.imagemIlustrativa} />
-            <ScrollView>
-                <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
-            </ScrollView>
-        </View>
-        
-        <TouchableOpacity style={styles.precoContainer}>
-            <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.preco}><Text style={styles.textPreco}>{item.preco}</Text></Animatable.View>
-        </TouchableOpacity>
+      <Text style={styles.nome}>{item.nome}</Text>
+  
+      <View style={styles.row}>
+        <Image source={{ uri: item.imagemIlustrativa }} style={styles.imagemIlustrativa} />
+        <ScrollView>
+          <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
+        </ScrollView>
+      </View>
+  
+      <TouchableOpacity style={styles.precoContainer}>
+        <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.preco}><Text style={styles.textPreco}>{item.preco}</Text></Animatable.View>
+      </TouchableOpacity>
     </Animatable.View>
-);
+  );
 
 function HomeLanchonete(): React.JSX.Element {
     return (
@@ -57,7 +70,7 @@ function HomeLanchonete(): React.JSX.Element {
 
             <FlatList
                 showsVerticalScrollIndicator={false}
-                data={dados}
+                data={produtos}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
