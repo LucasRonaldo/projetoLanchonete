@@ -2,6 +2,8 @@ import React from "react";
 import { FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 
+
+
 interface Item {
     id: string;
     nome: string;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { ScrollView, StatusBar, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Image, Text, View } from "react-native-animatable";
 import { launchCamera, launchImageLibrary } from "react-native-image-picker";
 import axios from "axios";
-
+import * as Animatable from 'react-native-animatable'
 
 const CadastroProduto: React.FC = () => {
 
@@ -85,121 +85,182 @@ const CadastroProduto: React.FC = () => {
     }
 
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor={'red'} barStyle="light-content" />
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Top Food</Text>
-            </View>
-            <View style={styles.form}>
-                <TextInput style={styles.input}
-                    placeholder="Nome do Produto"
+        <ScrollView style={styles.container}>
+            <Animatable.View animation="fadeInLeft"
+                delay={500} style={styles.containerHeader} >
+
+                <Text style={styles.message}>Cadastrar Produto</Text>
+            </Animatable.View>
+
+
+            <Animatable.View  animation="fadeInUp"
+
+
+                style={styles.containerForm} >
+                <Text style={styles.titleSelecionarFoto}>Foto</Text>
+
+                <View style={styles.logoContainer}>
+                    {/*<Image
+                        source={require('../../assets/images/usuario.png')}
+                        style={styles.logo}
+    />*/}
+
+                    {imagem ? <Image source={{ uri: imagem }} style={styles.logo} /> : <Image
+                        source={require('./../assets/images/usuario.png')}
+                        style={styles.logo}
+                    />}
+
+                </View>
+                <TouchableOpacity style={styles.imageButton} onPress={selecionarImagem} >
+                    <Text style={styles.imageButtonText}>Selecionar Imagem</Text>
+                </TouchableOpacity>
+                <Text style={styles.title}>Nome</Text>
+                <TextInput
+                    placeholder="Digite seu nome"
+                    style={styles.input}
                     value={nome}
-                    onChangeText={setNome} />
+                    onChangeText={setNome}></TextInput>
 
-
-                {/*<TextInput style={styles.input}
-                    placeholder="Preço"
+                <Text style={styles.title}>Preço</Text>
+                <TextInput
+                    placeholder="Digite o preço"
+                    style={styles.input}
                     value={preco}
-    onChangeText={setPreco} />*/}
-
-                <TextInput style={styles.input}
-                    placeholder="Nome do Produto"
-                    value={preco}
-                    onChangeText={setPreco} />
-
-                <TextInput style={styles.input}
-                    placeholder="Ingredientes"
+                    onChangeText={setPreco}></TextInput>
+                      <Text style={styles.title}>Ingredientes</Text>
+                <TextInput
+                    placeholder="Digite seu Ingredientes"
+                    style={styles.input}
                     value={ingredientes}
                     onChangeText={setIngredientes}
-                    multiline />
+                    multiline></TextInput>
 
-                    <View style={styles.alinhamentoImagensSelecionada}>
-                        {imagem ? <Image source={{uri:imagem}} style={styles.imagemSelecionado} /> : null}
-                    </View>
+               
 
-                    <TouchableOpacity style={styles.imageButton} onPress={selecionarImagem}>
-                        <Text style={styles.imageButtonText}>Selecionar Imagem</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.imageButton} onPress={abrirCamera}>
-                        <Text style={styles.imageButtonText}>Tirar Foto</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.imageButton} onPress={cadastrarProduto}>
-                        <Text style={styles.imageButtonText}>Cadastrar Produto</Text>
-                    </TouchableOpacity>
 
-            </View>
+                <TouchableOpacity style={styles.button} onPress={cadastrarProduto}>
+                    <Text style={styles.buttonText}>
+                        Cadastrar
+                    </Text>
+                </TouchableOpacity>
 
-        </View>
+
+
+
+
+
+
+            </Animatable.View>
+
+            
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
 
     container: {
-        flex: 1
-    }, header: {
-        backgroundColor: 'red',
-        paddingVertical: 10,
-        alignItems: 'center'
-    }, headerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'white'
+        flex: 1,
+        backgroundColor: '#38a69d'
     },
-    form: {
-        padding: 10,
-        backgroundColor: '#f0f0f0',
-        marginBottom: 10
+    containerHeader: {
+        marginTop: '14%',
+        marginBottom: '8%',
+        paddingStart: '5%',
+    },
+    message: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#FFF',
+
+    },
+    containerForm: {
+        backgroundColor: '#FFF',
+        flex: 1,
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingStart: '5%',
+        paddingEnd: '5%',
+
+    },
+    title: {
+        fontSize: 20,
+        marginTop: 28,
+    },
+    titleSelecionarFoto: {
+        fontSize: 25,
+        marginTop: 28,
+        textAlign:'center',
+        marginBottom:10
     },
     input: {
+        borderBottomWidth: 1,
         height: 40,
-        borderColor: 'grey',
-        borderWidth: 1,
-        marginBottom: 10,
-        paddingHorizontal: 10,
-        borderRadius: 10
+        marginBottom: 12,
+        fontSize: 16,
+    },
+    button: {
+        backgroundColor: '#38a69d',
+        width: '100%',
+        borderRadius: 4,
+        paddingVertical: 8,
+        marginTop: 14,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom:30
+
+    },
+    buttonText: {
+        color: '#FFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+
+    },
+    buttonRegister: {
+        marginTop: 14,
+        alignSelf: 'center',
+    }, registerText: {
+
+        color: '#a1a1a1'
+
+
     },
     imageButton: {
         backgroundColor: 'red',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
-        marginTop:10
+        marginTop: 40,
 
     },
     imageButtonText: {
         color: 'white',
         fontWeight: 'bold'
     },
-    imagemSelecionado: {
-        width: 200,
-        height: 200,
-        resizeMode: 'cover',
-        borderRadius: 5,
-        marginBottom: 10
-    },
-    alinhamentoImagensSelecionada: {
+    logoContainer: {
+        justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: -30,
     },
-    button: {
-        backgroundColor: 'red',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center'
+    logo: {
+        width: 150,
+        height: 150,
+         borderRadius:50,
+
     },
-    buttonText: {
-        color: 'white',
-        fontWeight: 'bold'
-    },
-    
+
+}
 
 
 
 
 
 
-});
+
+
+
+);
 
 export default CadastroProduto;

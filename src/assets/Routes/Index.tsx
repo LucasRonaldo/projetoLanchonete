@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Welcome, { } from '../Welcome/Welcome';
 import SignIn, { } from '../SignIn/SignIn';
-import cadastroCliente from "../Cadastro/cadastroAdm";
+import cadastroCliente from "../Cadastro/cadastroCliente";
 import HomeLanchonete from "../../HomeLanchonete";
 
 const Stack = createNativeStackNavigator();
@@ -33,11 +33,6 @@ export default function Routes() {
                 options={{ headerShown: false }}
             />
 
-            <Stack.Screen
-                name="cadastroPage"
-                component={CadastroPage}
-                options={{ headerShown: false }}
-            />
 
 
 

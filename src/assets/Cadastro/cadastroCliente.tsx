@@ -3,6 +3,7 @@ import { Animated, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpac
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
+import axios from 'axios';
 
 function CadastroCliente(): JSX.Element {
 
@@ -13,8 +14,40 @@ function CadastroCliente(): JSX.Element {
     const [telefone, setTelefone] = useState<string>('');
     const [endereco, setEndereco] = useState<string>('');
     const [email, setEmail] = useState<string>('');
+    const [cpf, setCpf] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const cadastrarCliente = async () => {
+        try{
+        const formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('telefone', telefone);
+        formData.append('endereco', endereco);        
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('cpf', cpf);
+        formData.append('imagem', {
+            uri: imagem,
+            type: 'imagem/jpeg',
+            name:new Date() + '.jpg'
+        });
+
+        console.log(formData);
+        const response = await axios.post('http://10.137.11.210:8000/api/cadastro/cliente', formData,{
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        });
+        if(response.status==200){
+            console.log("Cliente Cadastrado com sucesso...");
+        }
+        else{
+            console.log("Cliente não cadastrado");
+        }
+    } catch(error){
+        console.log(error);
+    }
+    }
 
     const selecionarImagem = () => {
 
@@ -81,31 +114,50 @@ function CadastroCliente(): JSX.Element {
                 <Text style={styles.title}>Nome</Text>
                 <TextInput
                     placeholder="Digite seu nome"
-                    style={styles.input}></TextInput>
+                    style={styles.input}
+                    value={nome}
+                    onChangeText={setNome}></TextInput>
 
                 <Text style={styles.title}>E-mail</Text>
                 <TextInput
                     placeholder="Ex: user@gmail.com"
-                    style={styles.input}></TextInput>
+                    style={styles.input}
+                    value={email}
+                    onChangeText={setEmail}></TextInput>
+                      <Text style={styles.title}>CPF</Text>
+                <TextInput
+                    placeholder="Digite seu CPF"
+                    style={styles.input}
+                    value={cpf}
+                    onChangeText={setCpf}></TextInput>
 
                 <Text style={styles.title}>Telefone</Text>
                 <TextInput
                     placeholder="Digite seu numero"
-                    style={styles.input}></TextInput>
+                    style={styles.input}
+                    value={telefone}
+                    onChangeText={setTelefone}></TextInput>
                     <Text style={styles.title}>Endereço</Text>
                 <TextInput
                     placeholder="Digite seu Endereço"
-                    style={styles.input}></TextInput>
+                    style={styles.input}
+                    value={endereco}
+                    onChangeText={setEndereco}></TextInput>
+
+
                 <Text style={styles.title}>Senha</Text>
                 <TextInput
                     placeholder="Digite uma senha"
-                    style={styles.input}></TextInput>
+                    style={styles.input}
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry={true}></TextInput>
 
 
 
 
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={cadastrarCliente}>
                     <Text style={styles.buttonText}>
                         Cadastrar
                     </Text>
@@ -164,7 +216,7 @@ const styles = StyleSheet.create({
     input: {
         borderBottomWidth: 1,
         height: 40,
-        marginBottom: 12,
+        marginBottom: -4,
         fontSize: 16,
     },
     button: {

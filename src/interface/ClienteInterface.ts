@@ -3,8 +3,10 @@ interface Cliente {
     id:number;
     nome:string;
     telefone:string;
-    endereco:number;
+    endereco:string;
     email:string;
+    cpf:string;
+    password:string;
     imagem:any;
 
 
