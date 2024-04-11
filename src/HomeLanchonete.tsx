@@ -2,64 +2,71 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
-const [produtos, setProdutos] = useState<Produto[]>([]);
 
 
-interface Item {
+
+
+interface Produto {
     id: string;
     nome: string;
     preco: string;
     listaDeIgredientes: string;
-    imagemIlustrativa: any;
-}
-
-useEffect(() => {
-    listarClientes();
-}, []);
-
-
-const listarClientes = async () => {
-    try {
-        const response = await axios.get('http://10.137.11.210:8000/api/produtos');
-        if (response.status === 200) {
-            setProdutos(response.data);
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    imagem: string;
 }
 
 
 
-const renderItem = ({ item }: { item: Item }) => (
+
+
+const renderItem = ({ item }: { item: Produto }) => (
     <Animatable.View animation="fadeInLeft" delay={400} style={styles.card}>
-      <Text style={styles.nome}>{item.nome}</Text>
-  
-      <View style={styles.row}>
-        <Image source={{ uri: item.imagemIlustrativa }} style={styles.imagemIlustrativa} />
-        <ScrollView>
-          <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
-        </ScrollView>
-      </View>
-  
-      <TouchableOpacity style={styles.precoContainer}>
-        <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.preco}><Text style={styles.textPreco}>{item.preco}</Text></Animatable.View>
-      </TouchableOpacity>
+        <Text style={styles.nome}>{item.nome}</Text>
+        {/* <Image source={{ uri: item.imagem }} style={styles.imagemIlustrativa} /> */}
+        <View style={styles.row}>
+            <ScrollView>
+                <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
+            </ScrollView>
+        </View>
+
+        <TouchableOpacity style={styles.precoContainer}>
+            <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.preco}><Text style={styles.textPreco}>{item.preco}</Text></Animatable.View>
+        </TouchableOpacity>
     </Animatable.View>
-  );
+);
 
 function HomeLanchonete(): React.JSX.Element {
+    const [produtos, setProdutos] = useState<Produto[]>([]);
+
+
+    useEffect(() => {
+        listarProdutos();
+    }, []);
+
+
+    const listarProdutos = async () => {
+        try {
+            const response = await axios.get('http://10.137.11.209:8000/api/produtos');
+            if (response.status === 200) {
+                setProdutos(response.data); // Set the state with the correct data
+                // console.log(response.data);
+            }
+            // console.log(response);
+        } catch (error) {
+            console.log("Entoru no error:")
+            console.log(error);
+        }
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#bdbdbd' barStyle='dark-content' />
             <Animatable.View animation="fadeInDown" delay={600} style={styles.header}>
-                <Animatable.Image  animation="pulse" easing="ease-out" iterationCount="infinite"
+                <Animatable.Image animation="pulse" easing="ease-out" iterationCount="infinite"
                     source={require('./assets/images/logo.png')}
                     style={styles.logo}
                 />
             </Animatable.View>
 
-            <View><Text style={styles.tituloCategoria}>Categorias</Text></View>
+            { /*  <View><Text style={styles.tituloCategoria}>Categorias</Text></View> 
 
             <ScrollView style={styles.categorias} showsHorizontalScrollIndicator horizontal>
                 <View style={styles.itensCategoria}>
@@ -67,6 +74,8 @@ function HomeLanchonete(): React.JSX.Element {
                     <Text style={styles.textItemCategoria}>Bebida</Text>
                 </View>
             </ScrollView>
+            */}
+
 
             <FlatList
                 showsVerticalScrollIndicator={false}
@@ -74,7 +83,7 @@ function HomeLanchonete(): React.JSX.Element {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
-
+            
             <Animatable.View animation="fadeInUp" delay={600} style={styles.footer}>
                 <TouchableOpacity><Image source={require('./assets/images/home.png')} style={styles.footerIcon} /></TouchableOpacity>
                 <TouchableOpacity><Image source={require('./assets/images/pedidos.png')} style={styles.footerIcon} /></TouchableOpacity>

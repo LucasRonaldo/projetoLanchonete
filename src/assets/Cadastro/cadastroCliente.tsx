@@ -34,7 +34,7 @@ function CadastroCliente(): JSX.Element {
         });
 
         console.log(formData);
-        const response = await axios.post('http://10.137.11.210:8000/api/cadastro/cliente', formData,{
+        const response = await axios.post('http://10.137.11.209:8000/api/cadastro/cliente', formData,{
             headers:{
                 'Content-Type':'multipart/form-data'
             }
@@ -45,6 +45,7 @@ function CadastroCliente(): JSX.Element {
                 text: "Cliente cadastrado",
                 icon: "success"
               });
+           
         }
         else{
             console.log("Cliente não cadastrado");

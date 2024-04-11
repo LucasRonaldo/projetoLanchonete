@@ -19,8 +19,8 @@ function App(): JSX.Element {
 
   return (
    
-    //<HomeLanchonete/>
-    <CadastroCliente/>
+    <HomeLanchonete/>
+    //<CadastroCliente/>
    
       //<CadastroProduto/>
    
