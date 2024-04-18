@@ -21,7 +21,7 @@ interface Produto {
 const renderItem = ({ item }: { item: Produto }) => (
     <Animatable.View animation="fadeInLeft" delay={400} style={styles.card}>
         <Text style={styles.nome}>{item.nome}</Text>
-        {/* <Image source={{ uri: item.imagem }} style={styles.imagemIlustrativa} /> */}
+        { <Image source={ item.imagem ?  { uri: item.imagem } : require('./assets/images/semfoto.png')} style={styles.imagemIlustrativa} /> }
         <View style={styles.row}>
             <ScrollView>
                 <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
@@ -45,14 +45,14 @@ function HomeLanchonete(): React.JSX.Element {
 
     const listarProdutos = async () => {
         try {
-            const response = await axios.get('http://10.137.11.209:8000/api/produtos');
+            const response = await axios.get('http://10.137.11.210:8000/api/produtos');
             if (response.status === 200) {
-                setProdutos(response.data); // Set the state with the correct data
-                // console.log(response.data);
+                setProdutos(response.data); 
+                 console.log(response.data);
             }
             // console.log(response);
         } catch (error) {
-            console.log("Entoru no error:")
+            
             console.log(error);
         }
     }
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     listaDeIgrediente: {
-        color: '#666',
+        color: 'red',
         fontSize: 16,
     },
     header: {
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
         height: 50,
     },
     imagemIlustrativa: {
-        width: 150,
-        height: 150,
+        width: 130,
+        height: 130,
         borderRadius: 20,
     },
     precoContainer: {

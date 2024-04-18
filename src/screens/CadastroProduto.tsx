@@ -13,7 +13,16 @@ const CadastroProduto: React.FC = () => {
     const [ingredientes, setIngredientes] = useState<string>('');
     const [imagem, setImagem] = useState<any>('');
 
+    const [nomeErro, setNomeErro] = useState<string>('');
+    const [precoErro, setPrecoErro] = useState<string>('');
+    const [ingredientesErro, setIngredientesErro] = useState<string>('');
+
     const cadastrarProduto = async () => {
+
+        setNomeErro("");
+        setPrecoErro("");
+        setIngredientesErro("");
+
         try{
         const formData = new FormData();
         formData.append('nome', nome);
@@ -25,7 +34,7 @@ const CadastroProduto: React.FC = () => {
             name:new Date() + '.jpg'
         });
 
-        const response = await axios.post('http://10.137.11.209:8000/api/produtos', formData,{
+        const response = await axios.post('http://10.137.11.210:8000/api/produtos', formData,{
             headers:{
                 'Content-Type':'multipart/form-data'
             }

@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { NavigationContainer } from '@react-navigation/native';
 import Welcome, { } from '../Welcome/Welcome';
 import SignIn, { } from '../SignIn/SignIn';
 import cadastroCliente from "../Cadastro/cadastroCliente";
@@ -9,6 +9,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Routes() {
     return (
+        
         <Stack.Navigator>
             <Stack.Screen
               name="Home"

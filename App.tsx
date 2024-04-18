@@ -9,6 +9,7 @@ import Welcome from './src/assets/Welcome/Welcome';
 import SignIn from './src/assets/SignIn/SignIn';
 import CadastroProduto from './src/screens/CadastroProduto';
 import CadastroCliente from './src/assets/Cadastro/cadastroCliente';
+import Carrinho from './src/assets/Carrinho';
 
 
 
@@ -21,8 +22,11 @@ function App(): JSX.Element {
    
     <HomeLanchonete/>
     //<CadastroCliente/>
-   
-      //<CadastroProduto/>
+   //<CadastroProduto/>
+
+   //<NavigationContainer>
+   //<Carrinho/>
+   //</NavigationContainer>
    
   
 
