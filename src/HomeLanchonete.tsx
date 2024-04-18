@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import * as Animatable from 'react-native-animatable';
 
 
@@ -21,11 +21,12 @@ interface Produto {
 
 
 const renderItem = ({ item }: { item: Produto }) => (
+   
     <Animatable.View animation="fadeInLeft" delay={400} style={styles.card}>
         
         <View style={styles.row}>
          <Image source={ item.imagem ?  { uri: item.imagem } : require('./assets/images/semfoto.png')} style={styles.imagemIlustrativa} /> 
-       
+         {!item.imagem && <ActivityIndicator style={styles.loading} size="large" color="grey" />}
                <Text style={styles.nome}>{item.nome}</Text>
             
         </View>
@@ -66,15 +67,7 @@ function HomeLanchonete(): React.JSX.Element {
                 />
             </Animatable.View>
 
-            { /*  <View><Text style={styles.tituloCategoria}>Categorias</Text></View> 
-
-            <ScrollView style={styles.categorias} showsHorizontalScrollIndicator horizontal>
-                <View style={styles.itensCategoria}>
-                    <Image source={require('../src/assets/images/drink.png')} style={styles.categoriaIcon} />
-                    <Text style={styles.textItemCategoria}>Bebida</Text>
-                </View>
-            </ScrollView>
-            */}
+           
 
 
             <FlatList
@@ -90,6 +83,7 @@ function HomeLanchonete(): React.JSX.Element {
                 <TouchableOpacity><Image source={require('./assets/images/menu.png')} style={styles.footerIcon} /></TouchableOpacity>
                 <TouchableOpacity><Image source={require('./assets/images/perfil.png')} style={styles.footerIcon} /></TouchableOpacity>
             </Animatable.View>
+            
         </View>
     );
 }
@@ -239,6 +233,9 @@ const styles = StyleSheet.create({
         right: 10,
         zIndex: 1, // Para que o botão de fechar fique em cima da imagem
     },
+    loading:{
+        width:'50%'
+    }
 });
 
 export default HomeLanchonete;
