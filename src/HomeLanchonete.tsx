@@ -6,6 +6,8 @@ import * as Animatable from 'react-native-animatable';
 
 
 
+
+
 interface Produto {
     id: string;
     nome: string;
@@ -20,17 +22,15 @@ interface Produto {
 
 const renderItem = ({ item }: { item: Produto }) => (
     <Animatable.View animation="fadeInLeft" delay={400} style={styles.card}>
-        <Text style={styles.nome}>{item.nome}</Text>
-        { <Image source={ item.imagem ?  { uri: item.imagem } : require('./assets/images/semfoto.png')} style={styles.imagemIlustrativa} /> }
+        
         <View style={styles.row}>
-            <ScrollView>
-                <Text style={styles.listaDeIgrediente}>{item.listaDeIgredientes}</Text>
-            </ScrollView>
+         <Image source={ item.imagem ?  { uri: item.imagem } : require('./assets/images/semfoto.png')} style={styles.imagemIlustrativa} /> 
+       
+               <Text style={styles.nome}>{item.nome}</Text>
+            
         </View>
 
-        <TouchableOpacity style={styles.precoContainer}>
-            <Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.preco}><Text style={styles.textPreco}>{item.preco}</Text></Animatable.View>
-        </TouchableOpacity>
+       
     </Animatable.View>
 );
 
@@ -120,10 +120,9 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif',
         color: '#333',
         textAlign: 'center',
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
         paddingBottom: 10,
         marginBottom: 10,
+        marginLeft: 8
     },
     listaDeIgrediente: {
         color: 'red',
