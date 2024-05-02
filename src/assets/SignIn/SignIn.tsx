@@ -1,46 +1,76 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 
+
+
 function SignIn(): JSX.Element {
     //const navigation = useNavigation();
-    
+    const [isHovered, setIsHovered] = useState(false);
+    const [isButton1Pressed, setIsButton1Pressed] = useState(false);
 
+    const handleButton1Press = () => {
+        setIsButton1Pressed(true);
+    };
+
+    const handleButton2Press = () => {
+        setIsButton1Pressed(false);
+    };
+
+    const handlePress = () => {
+        Alert.alert('Botão pressionado!');
+    };
     return (
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
+
                 <Text style={styles.message}>Bem-Vindo(a)</Text>
             </Animatable.View>
 
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
-                <View style={styles.logoContainer}>
-                    <Image
-                        source={require('../../assets/images/usuario.png')}
-                        style={styles.logo}
+
+                <View style={styles.card}>
+
+                    <View style={styles.buttonEntrar}>
+                        <TouchableOpacity
+                            style={[styles.button, isButton1Pressed ? styles.buttonPressed : null]}
+                            onPress={handleButton1Press}
+                        >
+                            <Text style={styles.buttonText}>Login</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[styles.button, !isButton1Pressed ? styles.buttonPressed : null]}
+                            onPress={handleButton2Press}
+                        >
+                            <Text style={styles.buttonText}>Nova conta</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Text style={styles.title}>Acesse sua conta</Text>
+                    <TextInput
+                        placeholder="Seu e-mail"
+                        placeholderTextColor={'#fff'}
+                        style={styles.input}
                     />
+
+
+                    <TextInput
+                        placeholder="Sua senha"
+                        placeholderTextColor={'#fff'}
+                        style={styles.inputPassword}
+                    />
+
+
+                    <TouchableOpacity style={styles.buttonll}><Text style={styles.buttonllText}>Entrar</Text></TouchableOpacity>
+
+
+
+
+
+
+
                 </View>
-                <Text style={styles.title}>E-mail</Text>
-                <TextInput
-                    placeholder="Digite um email..."
-                    style={styles.input}
-                />
-
-                <Text style={styles.title}>Senha</Text>
-                <TextInput
-                    placeholder="Digite uma senha..."
-                    style={styles.input}
-                />
-
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Acessar</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonRegister}>
-                    <Text style={styles.registerText} /*onPress={() => navigation.navigate('cadastroPage')}*/>
-                        Não possui uma conta?: Cadastre
-                    </Text>
-                </TouchableOpacity>
             </Animatable.View>
         </View>
     );
@@ -49,7 +79,7 @@ function SignIn(): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#38a69d'
+        backgroundColor: '#fff'
     },
     containerHeader: {
         marginTop: '14%',
@@ -59,15 +89,20 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#FFF',
+        color: '#171717',
+    },
+    buttonPressed: {
+        backgroundColor: '#171717',
     },
     containerForm: {
-        backgroundColor: '#FFF',
+        backgroundColor: '#171717',
+
         flex: 1,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingStart: '5%',
         paddingEnd: '5%',
+        //justifyContent: 'center'
     },
     logoContainer: {
         justifyContent: 'center',
@@ -80,27 +115,54 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        marginTop: 28,
+        marginTop: 30,margin:30,
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
     input: {
-        borderBottomWidth: 1,
-        borderColor: 'black', // Cor da borda
-        backgroundColor: '#f5f5f5', // Cor de fundo
-        height: 40,
+        borderWidth: 2,
+        borderColor: 'grey', // Cor da borda
+        backgroundColor: '#171717', // Cor de fundo
+        height: 50,
         marginBottom: 12,
-        fontSize: 16,
-        paddingHorizontal: 10, // Adiciona um preenchimento horizontal,
-        borderBottomLeftRadius:20,
-        borderTopRightRadius:20
+        fontSize: 20,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        paddingLeft: 25,
+        
+        // Adiciona um preenchimento horizontal,
+
+    }, card: {
+        borderWidth: 1,
+        borderColor: 'grey',
+        padding: 20,
+        marginTop: 40,
+        borderRadius: 15
+    },
+    inputPassword: {
+        borderWidth: 2,
+        borderColor: 'grey', // Cor da borda
+        backgroundColor: '#171717', // Cor de fundo
+        height: 50,
+        marginBottom: 12,
+        fontSize: 20,
+        paddingHorizontal: 10,
+        borderRadius: 10,
+        paddingLeft: 25,
+        marginTop: 10
+        // Adiciona um preenchimento horizontal,
+
     },
     button: {
-        backgroundColor: '#38a69d',
-        width: '100%',
-        borderRadius: 4,
-        paddingVertical: 8,
-        marginTop: 14,
+        flex: 1, // Distribui igualmente o espaço disponível entre os botões
+        backgroundColor: 'grey',
+        borderRadius: 6,
+        paddingVertical: 11,
         justifyContent: 'center',
         alignItems: 'center',
+        marginLeft: 3, // Adiciona margem à esquerda do segundo botão
+        marginRight: 3, // Adiciona margem à direita do primeiro botão
     },
     buttonText: {
         color: '#FFF',
@@ -110,9 +172,33 @@ const styles = StyleSheet.create({
     buttonRegister: {
         marginTop: 14,
         alignSelf: 'center',
+    }, buttonHovered: {
+        backgroundColor: 'red', // Cor quando o mouse passa sobre o botão
     },
     registerText: {
         color: '#a1a1a1'
+    },
+    buttonEntrar: {
+        backgroundColor: 'grey',
+        height: 50,
+        borderRadius: 6,
+        flexDirection: 'row',
+        padding: 1,
+        justifyContent: 'center', // Centraliza os itens na horizontal
+        alignItems: 'center'
+    }
+,
+    buttonll: {
+        backgroundColor: '#fff',
+        height: 50,
+        borderRadius: 6,
+        justifyContent: 'center', // Centraliza os itens na horizontal
+        alignItems: 'center',
+        marginTop:10
+    },
+    buttonllText:{
+        color:'#171717',
+        fontSize:20
     }
 });
 
