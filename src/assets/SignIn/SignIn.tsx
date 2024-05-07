@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 function SignIn(): JSX.Element {
-    //const navigation = useNavigation();
+    const navigation = useNavigation();
     const [isHovered, setIsHovered] = useState(false);
     const [isButton1Pressed, setIsButton1Pressed] = useState(false);
 
@@ -18,8 +18,14 @@ function SignIn(): JSX.Element {
         setIsButton1Pressed(false);
     };
 
-    const handlePress = () => {
-        Alert.alert('Botão pressionado!');
+       // Função para navegar para a tela de login
+       const navigateToLogin = () => {
+        navigation.navigate('Login'); // Nome da tela de login
+    };
+
+    // Função para navegar para a tela de cadastro
+    const navigateToSignUp = () => {
+        navigation.navigate('SignUp'); // Nome da tela de cadastro
     };
     return (
         <View style={styles.container}>
